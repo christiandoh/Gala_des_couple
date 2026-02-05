@@ -53,8 +53,8 @@ export function StatsChart({ inscriptions }: { inscriptions: Inscription[] }) {
           <CardDescription>Nombre d'inscriptions (couple, cheminant, fiancé)</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[220px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
+          <div className="h-[220px] w-full min-h-[220px] min-w-0">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={220}>
               <BarChart data={sectionData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                 <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                 <XAxis dataKey="section" tick={{ fontSize: 11 }} className="text-muted-foreground" />
@@ -79,9 +79,9 @@ export function StatsChart({ inscriptions }: { inscriptions: Inscription[] }) {
           <CardDescription>Inscriptions par mois</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[220px] w-full">
+          <div className="h-[220px] w-full min-h-[220px] min-w-0">
             {curveData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={220}>
                 <LineChart data={curveData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
                   <XAxis dataKey="mois" tick={{ fontSize: 11 }} className="text-muted-foreground" />

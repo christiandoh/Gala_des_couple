@@ -2,7 +2,11 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { Inscription } from "@/types/gala";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// Sur Vercel le filesystem est en lecture seule sauf /tmp — on écrit là pour éviter une 500
+const DATA_DIR =
+  process.env.VERCEL
+    ? path.join("/tmp", "gala-inscriptions")
+    : path.join(process.cwd(), "data");
 const FILE_PATH = path.join(DATA_DIR, "inscriptions.json");
 
 export async function getInscriptions(): Promise<Inscription[]> {
@@ -16,8 +20,13 @@ export async function getInscriptions(): Promise<Inscription[]> {
 }
 
 export async function saveInscriptions(inscriptions: Inscription[]): Promise<void> {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.writeFile(FILE_PATH, JSON.stringify(inscriptions, null, 2), "utf-8");
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+    await fs.writeFile(FILE_PATH, JSON.stringify(inscriptions, null, 2), "utf-8");
+  } catch (e) {
+    console.error("saveInscriptions failed:", e);
+    throw e;
+  }
 }
 
 export async function addInscription(inscription: Omit<Inscription, "id" | "createdAt">): Promise<Inscription> {
