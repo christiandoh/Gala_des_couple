@@ -27,12 +27,12 @@ Ouvrir [http://localhost:3001](http://localhost:3001).
 
 Pour mettre le site en ligne **directement depuis GitHub** (Settings → Pages) :
 
-1. Sur le dépôt **[christiandoh/Gala_des_couple](https://github.com/christiandoh/Gala_des_couple)** : onglet **Settings**.
-2. Dans le menu de gauche : **Pages**.
-3. Sous **Build and deployment** → **Source** : choisir **GitHub Actions**.
-4. À chaque push sur `main`, le workflow « Deploy to GitHub Pages » va build et déployer. L’URL du site sera : **https://christiandoh.github.io/Gala_des_couple/**
+1. Sur le dépôt **[christiandoh/Gala_des_couple](https://github.com/christiandoh/Gala_des_couple)** : **Settings** → **Pages**.
+2. Sous **Build and deployment** → **Source** : choisir **Deploy from a branch**.
+3. **Branch** : `gh-pages` — **Folder** : `/ (root)` — puis **Save**.
+4. À chaque push sur `main`, le workflow pousse le build vers la branche `gh-pages` ; le site sera à **https://christiandoh.github.io/Gala_des_couple/** (après le premier déploiement réussi).
 
-**Important :** GitHub Pages ne fait que du **statique**. Sur cette URL, le formulaire et les inscriptions **ne seront pas enregistrés** (pas d’API côté serveur). C’est une **version démo** du site. Pour une app complète (inscriptions, paiement, validation), utiliser Vercel (voir ci‑dessous).
+**Important :** GitHub Pages ne sert que du **statique**. Sur cette URL, le formulaire et les inscriptions **ne sont pas enregistrés**. Pour l’app complète (inscriptions, paiement, validation), utiliser Vercel (voir ci‑dessous).
 
 ---
 
