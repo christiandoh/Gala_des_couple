@@ -2,11 +2,10 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { Inscription } from "@/types/gala";
 
-// Sur Vercel le filesystem est en lecture seule sauf /tmp — on écrit là pour éviter une 500
-const DATA_DIR =
-  process.env.VERCEL
-    ? path.join("/tmp", "gala-inscriptions")
-    : path.join(process.cwd(), "data");
+// Sur Vercel (serverless) le filesystem est en lecture seule sauf /tmp — on écrit toujours dans /tmp si cwd = /var/task
+const cwd = process.cwd();
+const isServerless = process.env.VERCEL === "1" || cwd === "/var/task";
+const DATA_DIR = isServerless ? path.join("/tmp", "gala-inscriptions") : path.join(cwd, "data");
 const FILE_PATH = path.join(DATA_DIR, "inscriptions.json");
 
 export async function getInscriptions(): Promise<Inscription[]> {
